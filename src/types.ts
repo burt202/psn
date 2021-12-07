@@ -43,5 +43,5 @@ export type DbVideo = Video
 export interface Video {
   id: string
   title: string
-  date: string // might be better named at published_at to reflect truth?
+  date: string // might be better named at published_at to reflect truth
 }

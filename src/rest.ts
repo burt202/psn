@@ -94,7 +94,7 @@ const getVideosBySearchTerm: RestHandler = {
 const storeVideoMatches: RestHandler = {
   name: "store-video-matches",
   path: "/video-matches",
-  method: "get",
+  method: "get", // could easily be a POST
   handler:
     ({persistence, youtubeClient}) =>
     async (_, res) => {
