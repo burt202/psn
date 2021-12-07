@@ -5,8 +5,8 @@
     "lint": "eslint --ext js,ts,tsx src/",
     "clean": "rm -rf ./dist",
     "build": "npm run clean && tsc --project tsconfig.json",
-    "build-watch": "nodemon --ext '*' --watch src/service --exec 'npm run build'",
-    "start-service": "nodemon dist/"
+    "build-watch": "nodemon --ext '*' --watch src --exec 'npm run build'",
+    "start": "nodemon dist/"
   },
   "husky": {
     "hooks": {
