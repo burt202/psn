@@ -1,0 +1,10 @@
+CREATE TABLE videos (
+  id TEXT PRIMARY KEY,
+  title VARCHAR(100) NOT NULL,
+  date TIMESTAMPTZ(3) NOT NULL
+);
+
+CREATE TABLE channels (
+  id TEXT PRIMARY KEY,
+  channel_name VARCHAR(45) NOT NULL
+);
