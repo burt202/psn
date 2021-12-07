@@ -1,4 +1,6 @@
 import * as Bluebird from "bluebird"
+import * as fs from "fs"
+import * as path from "path"
 import * as uuid from "uuid"
 import {RestHandler} from "./types"
 
@@ -37,13 +39,10 @@ const storeVideoMatches: RestHandler = {
     async (_, res) => {
       await persistence.deleteAllVideos()
 
-      const searchFilters = [
-        "pro",
-        "matt stephens",
-        "5",
-        "Mitchelton-Scott",
-        "Dubai stage",
-      ] // move to file
+      const searchTerms = fs
+        .readFileSync(path.join(__dirname, "../src/search_terms"), "utf8")
+        .toString()
+        .split("\n")
 
       const allChannels = await persistence.getChannels()
       console.log("allChannels", allChannels)
@@ -84,7 +83,7 @@ const storeVideoMatches: RestHandler = {
           console.log("videoSearchResponse", videoSearchResponse.length)
 
           const filtered = videoSearchResponse.filter((i) => {
-            return searchFilters.some((s) => i.snippet.title.includes(s))
+            return searchTerms.some((s) => i.snippet.title.includes(s))
           })
 
           console.log("filtered", filtered.length)
