@@ -87,7 +87,12 @@ const getVideosBySearchTerm: RestHandler = {
 
       const allVideos = await persistence.getVideosBySearchTerm(searchTerm)
 
-      res.send({videos: allVideos})
+      res.send({
+        videos: allVideos.map((v) => ({
+          id: v.id,
+          title: v.title,
+        })),
+      })
     },
 }
 
