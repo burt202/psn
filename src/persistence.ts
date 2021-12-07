@@ -4,6 +4,7 @@ import {Deps, DbChannel, Channel, Video, DbVideo} from "./types"
 export interface Persistence {
   getChannels(): Promise<Array<Channel>>
   getVideos(): Promise<Array<Video>>
+  getVideoById(id: string): Promise<Video | undefined>
   insertVideos(videos: Array<Video>): Promise<void>
   deleteAllVideos(): Promise<void>
 }
@@ -22,6 +23,18 @@ export function createPersistence({pgClient}: Deps): Persistence {
       const res = await pgClient.query("SELECT * FROM videos")
 
       return res.rows.map(videoFromDbRow)
+    },
+
+    getVideoById: async (id) => {
+      const res = await pgClient.query("SELECT * FROM videos WHERE id = $1", [
+        id,
+      ])
+
+      if (res.rows.length === 0) {
+        return undefined
+      }
+
+      return res.rows[0] as Video
     },
 
     insertVideos: async (videos) => {

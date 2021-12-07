@@ -17,6 +17,23 @@ const getChannels: RestHandler = {
     },
 }
 
+const getVideoById: RestHandler = {
+  name: "get-video-by-id",
+  path: "/videos/:id",
+  method: "get",
+  handler:
+    ({persistence}) =>
+    async (req, res) => {
+      const video = await persistence.getVideoById(req.params.id)
+
+      if (!video) {
+        return res.status(404).send()
+      }
+
+      res.send({video})
+    },
+}
+
 const getVideos: RestHandler = {
   name: "get-videos",
   path: "/videos",
@@ -111,4 +128,4 @@ const storeVideoMatches: RestHandler = {
     },
 }
 
-export default [getChannels, getVideos, storeVideoMatches]
+export default [getChannels, getVideos, getVideoById, storeVideoMatches]
