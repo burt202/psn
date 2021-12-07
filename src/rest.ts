@@ -60,6 +60,21 @@ const getVideos: RestHandler = {
     },
 }
 
+const getVideosBySearchTerm: RestHandler = {
+  name: "get-videos-by-search-term",
+  path: "/videos-search",
+  method: "get",
+  handler:
+    ({persistence}) =>
+    async (req, res) => {
+      const allVideos = await persistence.getVideosBySearchTerm(
+        req.query.searchTerm as string,
+      )
+
+      res.send({videos: allVideos})
+    },
+}
+
 const storeVideoMatches: RestHandler = {
   name: "store-video-matches",
   path: "/video-matches",
@@ -146,5 +161,6 @@ export default [
   getVideos,
   getVideoById,
   deleteVideoById,
+  getVideosBySearchTerm,
   storeVideoMatches,
 ]
