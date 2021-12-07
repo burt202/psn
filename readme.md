@@ -26,3 +26,4 @@
 - move youtube api key out of source
 - test processor using api when quota is freed
 - split out and test processor
+- filtering case-insensitive
