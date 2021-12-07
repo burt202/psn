@@ -10,6 +10,7 @@ import createMigrator, {Migrator} from "./migrator"
 import {createPersistence} from "./persistence"
 import handlers from "./rest"
 import {Deps, Logger} from "./types"
+import {createYoutubeClient} from "./youtube-client"
 
 const restHandlers = [...handlers]
 
@@ -31,6 +32,9 @@ const pgPool = new Pool({
 const appContainer: Container = di.createContainer("service")
 appContainer.registerFactory("persistence", (deps: Deps) => {
   return createPersistence(deps)
+})
+appContainer.registerFactory("youtubeClient", (deps: Deps) => {
+  return createYoutubeClient(deps)
 })
 appContainer.registerFactory("dbMigrator", (deps: Deps) => {
   return createMigrator(deps)

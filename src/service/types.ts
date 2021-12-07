@@ -2,6 +2,7 @@ import {Request, Response} from "express"
 import {Pool} from "pg"
 import {Config} from "./config"
 import {Persistence} from "./persistence"
+import {YoutubeClient} from "./youtube-client"
 
 export interface Logger {
   info(msg: string, context?: {[key: string]: string | number}): void
@@ -12,6 +13,7 @@ export interface Deps {
   config: Config
   log: Logger
   persistence: Persistence
+  youtubeClient: YoutubeClient
 }
 
 export interface RestHandler {
@@ -32,4 +34,12 @@ export interface DbChannel {
 export interface Channel {
   id: string
   name: string
+}
+
+export type DbVideo = Video
+
+export interface Video {
+  id: string
+  title: string
+  date: string // might be better named at published_at to reflect truth?
 }

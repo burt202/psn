@@ -1,4 +1,10 @@
 # PSN Interview Task
 
-CLOUDSDK_PYTHON="/usr/bin/python" docker-compose up --build -d
-npm run build-watch
+### To Run
+
+- `CLOUDSDK_PYTHON="/usr/bin/python" docker-compose up --build -d`
+- `npm run build-watch`
+
+### TODO
+
+- "pagify" the youtube calls rather than having it hardcoded to 10

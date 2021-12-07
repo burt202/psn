@@ -6,6 +6,7 @@ export interface Config {
     port: number
     name: string
   }
+  youtubeKey: string
 }
 
 const config: Config = {
@@ -16,6 +17,7 @@ const config: Config = {
     port: parseInt(process.env.DB_PORT as string, 10) || 5432,
     name: process.env.DB_SCHEMA || "postgres",
   },
+  youtubeKey: "AIzaSyDY_W41_koMhMRrS6tvA5HkAYLOLKUiy_U",
 }
 
 export default config
