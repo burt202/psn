@@ -2,6 +2,7 @@
 
 ### To Run
 
+- `npm ci`
 - `docker-compose up --build -d`
 - `npm run build-watch`
 - go to `http://localhost:8081/`
