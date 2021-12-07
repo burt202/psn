@@ -22,6 +22,8 @@ export interface RestHandler {
   method: "get" | "delete"
   requestSchema?: {
     body?: object
+    params?: object
+    query?: object
   }
   handler: (deps: Deps) => (req: Request, res: Response) => void
 }

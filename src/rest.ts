@@ -64,12 +64,28 @@ const getVideosBySearchTerm: RestHandler = {
   name: "get-videos-by-search-term",
   path: "/videos-search",
   method: "get",
+  requestSchema: {
+    query: {
+      type: "object",
+      properties: {
+        searchTerm: {type: "string"},
+      },
+      required: ["searchTerm"],
+    },
+  },
   handler:
     ({persistence}) =>
     async (req, res) => {
-      const allVideos = await persistence.getVideosBySearchTerm(
-        req.query.searchTerm as string,
-      )
+      const searchTerm = (req.query.searchTerm || "") as string
+
+      if (searchTerm.length < 3) {
+        return res.status(400).send({
+          error: true,
+          type: "SearchTermTooSmall",
+        })
+      }
+
+      const allVideos = await persistence.getVideosBySearchTerm(searchTerm)
 
       res.send({videos: allVideos})
     },
