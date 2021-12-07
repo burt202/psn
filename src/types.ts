@@ -19,7 +19,7 @@ export interface Deps {
 export interface RestHandler {
   name: string
   path: string
-  method: "get" | "post"
+  method: "get" | "delete"
   requestSchema?: {
     body?: object
   }

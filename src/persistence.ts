@@ -5,6 +5,7 @@ export interface Persistence {
   getChannels(): Promise<Array<Channel>>
   getVideos(): Promise<Array<Video>>
   getVideoById(id: string): Promise<Video | undefined>
+  deleteVideoById(id: string): Promise<void>
   insertVideos(videos: Array<Video>): Promise<void>
   deleteAllVideos(): Promise<void>
 }
@@ -35,6 +36,10 @@ export function createPersistence({pgClient}: Deps): Persistence {
       }
 
       return res.rows[0] as Video
+    },
+
+    deleteVideoById: async (id) => {
+      await pgClient.query("DELETE FROM videos WHERE id = $1", [id])
     },
 
     insertVideos: async (videos) => {

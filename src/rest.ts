@@ -34,6 +34,19 @@ const getVideoById: RestHandler = {
     },
 }
 
+const deleteVideoById: RestHandler = {
+  name: "delete-video-by-id",
+  path: "/videos/:id",
+  method: "delete",
+  handler:
+    ({persistence}) =>
+    async (req, res) => {
+      await persistence.deleteVideoById(req.params.id)
+
+      res.send()
+    },
+}
+
 const getVideos: RestHandler = {
   name: "get-videos",
   path: "/videos",
@@ -128,4 +141,10 @@ const storeVideoMatches: RestHandler = {
     },
 }
 
-export default [getChannels, getVideos, getVideoById, storeVideoMatches]
+export default [
+  getChannels,
+  getVideos,
+  getVideoById,
+  deleteVideoById,
+  storeVideoMatches,
+]
