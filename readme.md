@@ -21,10 +21,15 @@
 - GET `/videos-search?searchTerm=foo`
 - GET `/video-matches`
 
+### What I Missed
+
+Initially missed the docs on how quotas work, which slowed me down a little
+https://developers.google.com/youtube/v3/determine_quota_cost
+
 ### TODO
+
+If I spent more time on this I would...
 
 - "pagify" the youtube calls rather than having it hardcoded to 10
 - move youtube api key out of source
-- test processor using api when quota is freed
-- split out and test processor
-- filtering case-insensitive
+- unit test processor
