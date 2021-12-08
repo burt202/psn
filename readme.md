@@ -33,3 +33,4 @@ If I spent more time on this I would...
 - "pagify" the youtube calls rather than having it hardcoded to 10
 - move youtube api key out of source
 - unit test processor
+- make processor more fault tolerant

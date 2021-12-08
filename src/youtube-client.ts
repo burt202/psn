@@ -10,6 +10,7 @@ export interface YoutubeClient {
   getVideosForChannel(id: string): Promise<Array<YT_VideoSearchResult>>
 }
 
+// couldnt find any offical types so hand-rolled the minimum myself
 export interface YT_Response<T> {
   items: Array<T>
 }
