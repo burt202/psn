@@ -15,14 +15,11 @@ export function createProcessor({youtubeClient, persistence}: Deps): Processor {
       return i.id.channelId
     })
 
-    console.log("channelIds.length", channelIds.length)
-
     const channelsByIdsResponse = await youtubeClient.getChannelsByIds(
       channelIds,
     )
 
     const match = channelsByIdsResponse.find((i) => {
-      console.log("i.snippet.customUrl", i.snippet.customUrl)
       return i.snippet.customUrl?.toLowerCase() === channel.name.toLowerCase()
     })
 
@@ -38,14 +35,10 @@ export function createProcessor({youtubeClient, persistence}: Deps): Processor {
       match.id,
     )
 
-    console.log("videoSearchResponse", videoSearchResponse.length)
-
     const filtered = videoSearchResponse.filter((i) => {
       const title = i.snippet.title.toLowerCase()
       return searchTerms.some((s) => title.includes(s.toLowerCase()))
     })
-
-    console.log("filtered", filtered.length)
 
     const mapped = filtered.map((f) => {
       return {
