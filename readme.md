@@ -2,10 +2,14 @@
 
 ### To Run
 
+Required: node 14+, npm, docker, docker-compose
+
 - `npm ci`
 - `docker-compose up --build -d`
 - `npm run build-watch`
 - go to `http://localhost:8081/`
+
+NOTE: only tested on linux, but should work on mac
 
 ### Postgres Access
 
