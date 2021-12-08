@@ -23,7 +23,7 @@ export function createProcessor({youtubeClient, persistence}: Deps): Processor {
 
     const match = channelsByIdsResponse.find((i) => {
       console.log("i.snippet.customUrl", i.snippet.customUrl)
-      return i.snippet.customUrl === channel.name.toLowerCase()
+      return i.snippet.customUrl?.toLowerCase() === channel.name.toLowerCase()
     })
 
     if (!match) {
@@ -41,7 +41,8 @@ export function createProcessor({youtubeClient, persistence}: Deps): Processor {
     console.log("videoSearchResponse", videoSearchResponse.length)
 
     const filtered = videoSearchResponse.filter((i) => {
-      return searchTerms.some((s) => i.snippet.title.includes(s))
+      const title = i.snippet.title.toLowerCase()
+      return searchTerms.some((s) => title.includes(s.toLowerCase()))
     })
 
     console.log("filtered", filtered.length)
