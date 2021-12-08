@@ -37,7 +37,7 @@ export function createYoutubeClient({config}: Deps): YoutubeClient {
         q: urlName,
         type: "channel",
         part: "snippet",
-        maxResult: 10,
+        maxResults: 10,
       })}`
 
       const response = await axios.get<YT_Response<YT_ChannelSearchResult>>(url)
@@ -50,7 +50,7 @@ export function createYoutubeClient({config}: Deps): YoutubeClient {
         key: config.youtubeKey,
         id: ids.join(","),
         part: "snippet",
-        maxResult: 10,
+        maxResults: 10,
       })}`
 
       const response = await axios.get<YT_Response<YT_Channel>>(url)
@@ -63,7 +63,7 @@ export function createYoutubeClient({config}: Deps): YoutubeClient {
         key: config.youtubeKey,
         channelId: id,
         part: "snippet",
-        maxResult: 10,
+        maxResults: 10,
       })}`
 
       const response = await axios.get<YT_Response<YT_VideoSearchResult>>(url)
