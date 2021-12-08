@@ -2,6 +2,7 @@ import {Request, Response} from "express"
 import {Pool} from "pg"
 import {Config} from "./config"
 import {Persistence} from "./persistence"
+import {Processor} from "./processor"
 import {YoutubeClient} from "./youtube-client"
 
 export interface Logger {
@@ -14,6 +15,7 @@ export interface Deps {
   log: Logger
   persistence: Persistence
   youtubeClient: YoutubeClient
+  processor: Processor
 }
 
 export interface RestHandler {

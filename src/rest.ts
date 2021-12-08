@@ -1,7 +1,6 @@
 import * as Bluebird from "bluebird"
 import * as fs from "fs"
 import * as path from "path"
-import * as uuid from "uuid"
 import {RestHandler} from "./types"
 
 const getChannels: RestHandler = {
@@ -101,7 +100,7 @@ const storeVideoMatches: RestHandler = {
   path: "/video-matches",
   method: "get", // could easily be a POST
   handler:
-    ({persistence, youtubeClient}) =>
+    ({persistence, processor}) =>
     async (_, res) => {
       await persistence.deleteAllVideos()
 
@@ -111,64 +110,11 @@ const storeVideoMatches: RestHandler = {
         .split("\n")
 
       const allChannels = await persistence.getChannels()
-      console.log("allChannels", allChannels)
 
       const processed = await Bluebird.map(
-        [{name: "GlobalCyclingNetwork"}],
+        allChannels,
         async (channel) => {
-          const channelSearchResponse =
-            await youtubeClient.searchForChannelsByUrlName(channel.name)
-
-          const channelIds = channelSearchResponse.map((i) => {
-            return i.id.channelId
-          })
-
-          console.log("channelIds.length", channelIds.length)
-
-          const channelsByIdsResponse = await youtubeClient.getChannelsByIds(
-            channelIds,
-          )
-
-          const match = channelsByIdsResponse.find((i) => {
-            console.log("i.snippet.customUrl", i.snippet.customUrl)
-            return i.snippet.customUrl === channel.name.toLowerCase()
-          })
-
-          if (!match) {
-            return {
-              id: null,
-              channelUrlName: channel.name,
-              videos: [],
-            }
-          }
-
-          const videoSearchResponse = await youtubeClient.getVideosForChannel(
-            match.id,
-          )
-
-          console.log("videoSearchResponse", videoSearchResponse.length)
-
-          const filtered = videoSearchResponse.filter((i) => {
-            return searchTerms.some((s) => i.snippet.title.includes(s))
-          })
-
-          console.log("filtered", filtered.length)
-
-          const mapped = filtered.map((f) => {
-            return {
-              id: uuid.v4(),
-              title: f.snippet.title,
-              date: f.snippet.publishedAt,
-            }
-          })
-
-          await persistence.insertVideos(mapped)
-
-          return {
-            id: match.id,
-            channelUrlName: channel.name,
-            videos: mapped,
-          }
+          return processor(channel, searchTerms)
         },
         {concurrency: 1},
       )

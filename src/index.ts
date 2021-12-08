@@ -8,6 +8,7 @@ import * as R from "ramda"
 import config from "./config"
 import createMigrator, {Migrator} from "./migrator"
 import {createPersistence} from "./persistence"
+import {createProcessor} from "./processor"
 import handlers from "./rest"
 import {Deps, Logger} from "./types"
 import {createYoutubeClient} from "./youtube-client"
@@ -35,6 +36,9 @@ appContainer.registerFactory("persistence", (deps: Deps) => {
 })
 appContainer.registerFactory("youtubeClient", (deps: Deps) => {
   return createYoutubeClient(deps)
+})
+appContainer.registerFactory("processor", (deps: Deps) => {
+  return createProcessor(deps)
 })
 appContainer.registerFactory("dbMigrator", (deps: Deps) => {
   return createMigrator(deps)
