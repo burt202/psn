@@ -7,8 +7,7 @@ Required: node 14+, npm, docker, docker-compose
 You will need to use your own youtube API key and add it to `src/config.ts` as I have revoked mine before making this repo public
 
 - `npm ci`
-- `docker-compose up --build -d`
-- `npm run build-watch`
+- `npm run develop`
 - go to `http://localhost:8081/`
 
 NOTE: only tested on linux, but should work on mac

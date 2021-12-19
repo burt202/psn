@@ -3,10 +3,8 @@
   "version": "0.0.1",
   "scripts": {
     "lint": "eslint --ext js,ts,tsx src/",
-    "clean": "rm -rf ./dist",
-    "build": "npm run clean && tsc --project tsconfig.json",
-    "build-watch": "nodemon --ext '*' --watch src --exec 'npm run build'",
-    "start": "nodemon dist/"
+    "start": "nodemon --ext ts --watch src --exec ts-node ./src/index.ts",
+    "develop": "./scripts/develop.sh"
   },
   "husky": {
     "hooks": {
